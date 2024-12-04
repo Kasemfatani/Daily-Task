@@ -12,12 +12,17 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { format } from "date-fns";
 
 const Index = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const { toast } = useToast();
+
+  const getCurrentDate = () => {
+    return format(new Date(), "EEEE, MMMM do, yyyy");
+  };
 
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,6 +33,7 @@ const Index = () => {
       content: newTask,
       completed: false,
       createdAt: new Date(),
+      timestamp: format(new Date(), "h:mm a"),
     };
 
     setTasks([...tasks, task]);
@@ -77,9 +83,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white dark:from-purple-950 dark:to-background p-4 sm:p-6 lg:p-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-          Daily Tasks
-        </h1>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+            Daily Tasks
+          </h1>
+          <p className="text-muted-foreground">{getCurrentDate()}</p>
+        </div>
 
         <form onSubmit={handleAddTask} className="flex gap-2 mb-6">
           <Input

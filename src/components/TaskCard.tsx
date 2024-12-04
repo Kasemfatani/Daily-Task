@@ -2,7 +2,7 @@ import { Task } from "@/types/Task";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TaskCardProps {
@@ -21,14 +21,20 @@ const TaskCard = ({ task, onDelete, onEdit, onToggleComplete }: TaskCardProps) =
             checked={task.completed}
             onCheckedChange={() => onToggleComplete(task.id)}
           />
-          <span
-            className={cn(
-              "flex-1",
-              task.completed && "line-through text-muted-foreground"
-            )}
-          >
-            {task.content}
-          </span>
+          <div className="flex-1">
+            <span
+              className={cn(
+                "block",
+                task.completed && "line-through text-muted-foreground"
+              )}
+            >
+              {task.content}
+            </span>
+            <span className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+              <Clock className="h-3 w-3" />
+              {task.timestamp}
+            </span>
+          </div>
         </div>
         <div className="flex gap-2">
           <Button

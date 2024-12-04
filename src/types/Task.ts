@@ -3,4 +3,5 @@ export interface Task {
   content: string;
   completed: boolean;
   createdAt: Date;
+  timestamp: string;
 }
